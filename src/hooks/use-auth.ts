@@ -17,16 +17,23 @@ export const useAuth = () => {
       const token = localStorage.getItem('buildflow_token');
       if (!token) {
         setLoading(false);
+        setIsAuthenticated(false);
         return;
       }
 
-      // We don't have a direct /me endpoint in proposal, but we can list users or similar
-      // For this implementation, we'll decode the token or just assume session is valid
-      // if we can make a protected call. Let's try to get projects as a ping.
-      await apiClient.get('/proyectos');
+      // Intentamos verificar la sesión. 
+      // Si el servidor falla pero tenemos token, en prototipo asumimos que el usuario sigue ahí.
+      try {
+        await apiClient.get('/proyectos');
+      } catch (err: any) {
+        // Si es error 401 (Unauthorized), sí borramos la sesión
+        if (err.response?.status === 401) {
+          throw new Error('Unauthorized');
+        }
+        // Para otros errores (conexión, etc.), permitimos continuar en prototipo
+        console.warn("API check failed, but keeping session for prototype");
+      }
       
-      // In a real app, we'd have /auth/me to get the user profile.
-      // Mocking user profile based on typical JWT payload or generic admin for now.
       setUser({
         username: 'admin',
         nombre: 'Admin',

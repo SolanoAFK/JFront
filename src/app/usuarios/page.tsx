@@ -28,6 +28,7 @@ import apiClient from '@/lib/api-client';
 import { toast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/use-auth';
 import { useRouter } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export default function UsuariosPage() {
   const { user: currentUser } = useAuth();
