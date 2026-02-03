@@ -10,7 +10,8 @@ import {
   ArrowUpRight, 
   DollarSign, 
   AlertTriangle,
-  Building2
+  Building2,
+  BarChart as BarChartIcon
 } from 'lucide-react';
 import { AppLayout } from '@/components/layout/app-layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,10 +25,7 @@ import {
   ResponsiveContainer, 
   Cell,
   PieChart,
-  Pie,
-  LineChart,
-  Line,
-  Legend
+  Pie
 } from 'recharts';
 import { Project } from '@/lib/types';
 import apiClient from '@/lib/api-client';
@@ -35,6 +33,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 export default function DashboardPage() {
   const [projects, setProjects] = useState<Project[]>([]);
@@ -75,8 +74,6 @@ export default function DashboardPage() {
     { name: 'Equipos', value: 15, color: '#f59e0b' },
     { name: 'Otros', value: 10, color: '#6366f1' },
   ];
-
-  const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#6366f1', '#ef4444'];
 
   return (
     <AppLayout>
@@ -132,7 +129,7 @@ export default function DashboardPage() {
           <Card className="lg:col-span-2 border-none shadow-md overflow-hidden bg-white/50 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <BarChart className="h-5 w-5 text-primary" />
+                <BarChartIcon className="h-5 w-5 text-primary" />
                 Presupuesto por Proyecto
               </CardTitle>
               <CardDescription>Visualización de presupuesto total vs. gastado</CardDescription>
@@ -157,7 +154,7 @@ export default function DashboardPage() {
           <Card className="border-none shadow-md overflow-hidden bg-white/50 backdrop-blur-sm">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <PieChart className="h-5 w-5 text-emerald-500" />
+                <PieChartIcon className="h-5 w-5 text-emerald-500" />
                 Distribución de Gastos
               </CardTitle>
               <CardDescription>Categorías de gastos más comunes</CardDescription>
@@ -311,4 +308,24 @@ function AlertItem({ type, title, description }: any) {
       </div>
     </div>
   );
+}
+
+function PieChartIcon(props: any) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21.21 15.89A10 10 0 1 1 8 2.83" />
+      <path d="M22 12A10 10 0 0 0 12 2v10z" />
+    </svg>
+  )
 }

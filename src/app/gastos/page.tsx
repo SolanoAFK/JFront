@@ -10,8 +10,7 @@ import {
   Download,
   Calendar as CalendarIcon,
   Tag,
-  ArrowDownCircle,
-  AlertCircle
+  ArrowDownCircle
 } from 'lucide-react';
 import { AppLayout } from '@/components/layout/app-layout';
 import { Button } from '@/components/ui/button';
@@ -30,6 +29,7 @@ import apiClient from '@/lib/api-client';
 import { toast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import { cn } from '@/lib/utils';
 
 export default function GastosPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
